@@ -59,9 +59,9 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Manajemen</h6>
-                    {{-- <a class="collapse-item" href="{{ route('dana-pemasukan.index') }}">Pemasukan</a>
+                    <a class="collapse-item" href="{{ route('dana-pemasukan.index') }}">Pemasukan</a>
                     <a class="collapse-item" href="{{ route('dana-pengeluaran.index') }}">Pengeluaran</a>
-                    <a class="collapse-item" href="{{ route('dana-rekapitulasi.index') }}">Rekapitulasi</a> --}}
+                    <a class="collapse-item" href="{{ route('dana-rekapitulasi.index') }}">Rekapitulasi</a>
                 </div>
             </div>
         </li>

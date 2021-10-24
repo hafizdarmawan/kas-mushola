@@ -36,14 +36,24 @@ Route::get('/kas-pengeluaran/getdata', 'KasPengeluaranController@getData')->name
 Route::post('/kas-pengeluaran/store', 'KasPengeluaranController@store')->name('kas-pengeluaran.store');
 Route::get('/kas-pengeluaran/edit', 'KasPengeluaranController@edit')->name('kas-pengeluaran.edit');
 Route::post('/kas-pengeluaran/destroy/{id}', 'KasPengeluaranController@destroy')->name('kas-pengeluaran.destroy');
-
-
 // // Kas Pemasu
-// Route::resource('kas-pemasukan', 'KasPemasukanController');
-// Route::get('/kas-pemasukan/getdata', 'KasPemasukanController@getData')->name('kas-pemasukan.getData');
-// // Kas Pengeluaran
-// Route::resource('kas-pengeluaran', 'KasPengeluaranController');
-// Route::get('/kas-pengeluaran/getdata', 'KasPengeluaranController@getData')->name('kas-pengeluaran.getData');
-// Rekap Kas
+
+// Route untuk Dana Sosial Pemasukan
+Route::get('/dana-sosial-pemasukan', 'DanaPemasukanController@index')->name('dana-pemasukan.index');
+Route::get('/dana-sosial-pemasukan/getdata', 'DanaPemasukanController@getData')->name('dana-pemasukan.getdata');
+Route::post('/dana-sosial-pemasukan/store', 'DanaPemasukanController@store')->name('dana-pemasukan.store');
+Route::get('/dana-sosial-pemasukan/edit', 'DanaPemasukanController@edit')->name('dana-pemasukan.edit');
+Route::post('/dana-sosial-pemasukan/destroy/{id}', 'DanaPemasukanController@destroy')->name('dana-pemasukan.destroy');
+
+// Route untuk Dana Sosial Pengeluaran
+Route::get('/dana-sosial-pengeluaran', 'DanaPengeluaranController@index')->name('dana-pengeluaran.index');
+Route::get('/dana-sosial-pengeluaran/getdata', 'DanaPengeluaranController@getData')->name('dana-pengeluaran.getdata');
+Route::post('/dana-sosial-pengeluaran/store', 'DanaPengeluaranController@store')->name('dana-pengeluaran.store');
+Route::get('/dana-sosial-pengeluaran/edit', 'DanaPengeluaranController@edit')->name('dana-pengeluaran.edit');
+Route::post('/dana-sosial-pengeluaran/destroy/{id}', 'DanaPengeluaranController@destroy')->name('dana-pengeluaran.destroy');
+
+// Route untuk Kas Rekapitulasi
+Route::get('/dana-sosial-rekapitulasi', 'DanaRekapController@index')->name('dana-rekapitulasi.index');
+Route::get('/dana-sosial-rekapitulasi/getdata', 'DanaRekapController@getData')->name('dana-rekapitulasi.getdata');// Rekap Kas
 Route::get('/kas-rekap', 'KasRekapController@index')->name('kas-rekap.index');
 Route::get('/kas-rekap/getdata', 'KasRekapController@getData')->name('kas-rekap.getdata');

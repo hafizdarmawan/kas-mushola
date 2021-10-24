@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
-class DanaSosialPengeluaranController extends Controller
+class DanaPengeluaranController extends Controller
 {
     /**
      * Display a listing of the resource.
