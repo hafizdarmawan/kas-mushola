@@ -39,9 +39,9 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Manajemen</h6>
-                    {{-- <a class="collapse-item" href="{{ route('kas-pemasukan.index') }}">Pemasukan</a>
+                    <a class="collapse-item" href="{{ route('kas-pemasukan.index') }}">Pemasukan</a>
                     <a class="collapse-item" href="{{ route('kas-pengeluaran.index') }}">Pengeluaran</a>
-                    <a class="collapse-item" href="{{ route('kas-rekapitulasi.index') }}">Rekapitulasi</a> --}}
+                    <a class="collapse-item" href="{{ route('kas-rekap.index') }}">Rekapitulasi</a>
                 </div>
             </div>
         </li>

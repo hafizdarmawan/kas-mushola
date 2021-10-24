@@ -84,9 +84,10 @@ class KasPengeluaranController extends Controller
      * @param  \App\Kas_Pengeluaran  $kas_Pengeluaran
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kas_Pengeluaran $kas_Pengeluaran)
+    public function edit(Request $request, $id)
     {
-        //
+        $data = Kas_Pengeluaran::find($id);
+        echo json_encode($data);
     }
 
     /**
@@ -107,8 +108,8 @@ class KasPengeluaranController extends Controller
      * @param  \App\Kas_Pengeluaran  $kas_Pengeluaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kas_Pengeluaran $kas_Pengeluaran)
+    public function destroy(Request $request, $id)
     {
-        //
+        Kas_Pengeluaran::find($id)->delete();
     }
 }
