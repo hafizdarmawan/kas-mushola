@@ -12,9 +12,21 @@ class KasPemasukanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        return view('backend.kas_masuk.index');
+    }
+
+
+    public function getData()
+    {
+        // 
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Kas_Pemasukan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('kas-pemasukan', 'KasPemasukanController');
+Route::get('/kas-pemasukan/getdata', 'KasPemasukanController@getData')->name('kas-pemasukan.getData');
