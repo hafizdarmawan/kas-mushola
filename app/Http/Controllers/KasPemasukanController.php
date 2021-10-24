@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Kas_Pemasukan;
+use Datatables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KasPemasukanController extends Controller
 {
@@ -26,7 +28,7 @@ class KasPemasukanController extends Controller
 
     public function getData()
     {
-        // 
+        return Datatables::of(Kas_Pemasukan::all())->make(true);
     }
 
     /**
@@ -47,7 +49,19 @@ class KasPemasukanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'id_users'      => Auth::id(),
+            'sumber'        => $request->post('sumber'),
+            'jumlah'        => $request->post('jumlah'),
+            'tanggal'       => $request->post('tanggal'),
+            'keterangan'    => $request->post('keterangan'),
+        ];
+        if (empty($request->id)) {
+            Kas_Pemasukan::create($data);
+        } else {
+            Kas_Pemasukan::find($request->id)->update($data);
+        }
+        return redirect()->route('kas-pemasukan.index');
     }
 
     /**
@@ -67,10 +81,12 @@ class KasPemasukanController extends Controller
      * @param  \App\Kas_Pemasukan  $kas_Pemasukan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kas_Pemasukan $kas_Pemasukan)
+    public function edit(Request $request)
     {
-        //
+        $data = Kas_Pemasukan::find($request->id);
+        echo json_encode($data);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -90,8 +106,9 @@ class KasPemasukanController extends Controller
      * @param  \App\Kas_Pemasukan  $kas_Pemasukan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kas_Pemasukan $kas_Pemasukan)
+    public function destroy(Request $request, $id)
     {
-        //
+        $data = Kas_Pemasukan::find($id);
+        $data->delete();
     }
 }
