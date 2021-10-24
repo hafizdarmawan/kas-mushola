@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Kas_Pengeluaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Contracts\DataTable;
+use Yajra\DataTables\Facades\DataTables;
 
 class KasPengeluaranController extends Controller
 {
@@ -12,9 +15,23 @@ class KasPengeluaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
-        //
+        return view('backend.kas_keluar.index');
+    }
+
+
+    public function getData()
+    {
+
+        return DataTables::of(Kas_Pengeluaran::all())->make(true);
     }
 
     /**
@@ -35,7 +52,19 @@ class KasPengeluaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'id_user'       => Auth::id(),
+            'keperluan'     => $request->post('keperluan'),
+            'jumlah'        => $request->post('jumlah'),
+            'tanggal'       => $request->post('tanggal'),
+            'keterangan'    => $request->post('keterangan'),
+        ];
+        if ($request->post('id') == '') {
+            Kas_Pengeluaran::create($data);
+        } else {
+            Kas_Pengeluaran::find($request->post('id'))->update($data);
+        }
+        return redirect()->route('kas-pengeluaran.index');
     }
 
     /**

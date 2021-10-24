@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Kas_Pemasukan;
-use Datatables;
+use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

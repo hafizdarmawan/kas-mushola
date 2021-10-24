@@ -23,5 +23,9 @@ Auth::routes();
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::get('/home', 'HomeController@index')->name('home');
+// Kas Pemasu
 Route::resource('kas-pemasukan', 'KasPemasukanController');
 Route::get('/kas-pemasukan/getdata', 'KasPemasukanController@getData')->name('kas-pemasukan.getData');
+// Kas Pengeluaran
+Route::resource('kas-pengeluaran', 'KasPengeluaranController');
+Route::get('/kas-pengeluaran/getdata', 'KasPengeluaranController@getData')->name('kas-pengeluaran.getData');
