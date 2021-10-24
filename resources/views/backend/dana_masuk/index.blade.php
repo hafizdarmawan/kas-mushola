@@ -1,11 +1,11 @@
-@extends('layouts.master')
+@extends('layouts.backend.master')
 
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Data Kas Masuk <button class="btn btn-success" style="float: right" data-toggle="modal"
+                    <h4>Data Dana Sosial Masuk <button class="btn btn-success" style="float: right" data-toggle="modal"
                             data-target="#modal-add"><i class="fa fa-plus"></i>
                             Tambah Data</button></h4>
                 </div>
@@ -45,12 +45,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Form Data Kas Masuk</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Form Data Dana Sosial Masuk</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form name="form_add" id="form_add" class="form-horizontal" action="{{ route('kas-pemasukan.store') }}"
+                <form name="form_add" id="form_add" class="form-horizontal" action="{{ route('dana-pemasukan.store') }}"
                     method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
@@ -87,46 +87,55 @@
 
     @push('scripts')
         <script type="text/javascript">
-            $(document).ready(function(){
+            $(document).ready(function() {
                 $.ajaxSetup({
-                    headers:{
+                    headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
                 $('#tbl_list').DataTable({
-                    "aLengthMenu":[
-                        [10,25,50,100,200,-1],
-                        [10,25,50,100,200,"All"]
+                    "aLengthMenu": [
+                        [10, 25, 50, 100, 200, -1],
+                        [10, 25, 50, 100, 200, "All"]
                     ],
-                    paging:true,
-                    processing:true,
-                    serverSide:true,
-                    ajax:"{{ url('kas-pemasukan/getdata') }}",
-                    type:"POST",
-                    columns:[{
-                        data:'id'
-                    },{
-                        data:'sumber'
-                    },{
-                        data:'jumlah'
-                    },{
-                        data:'tanggal'
-                    },{
-                        data:'keterangan'
-                    },{
-                        data:'id',
-                        render:function(data,type,row){
-                            return '<button type="button" class="btn btn-xs btn-success shadow edit" data-id="'+data+'"><small>Edit</small></button>'+
-                            '<button type="button" class="btn btn-danger btn-xs shadow destroy" hapus-id="'+data+'"><small>Hapus</small></button>';
+                    paging: true,
+                    processing: true,
+                    serverSide: true,
+                    ajax: '{{ url('dana-sosial-pemasukan/getdata') }}',
+                    type: "POST",
+                    columns: [{
+                            data: 'id'
                         },
-                        sClass:"text-center",
-                        searchable:false
-                    }],
+                        {
+                            data: 'sumber'
+                        },
+                        {
+                            data: 'jumlah'
+                        },
+                        {
+                            data: 'tanggal'
+                        },
+                        {
+                            data: 'keterangan'
+                        },
+                        {
+                            data: "id",
+                            render: function(data, type, row) {
+                                return '<button type="button" class="btn btn-xs btn-success edit" data-id="' +
+                                    data + '"><small>Edit</small></button>' +
+                                    '<button type="button" class="btn btn-xs btn-danger destroy" hapus-id="' +
+                                    data + '"><small>Hapus</small></button>';
+                            },
+                            sClass: "text-center",
+                            searchable: false
+                        }
+                    ],
+
                     "drawCallback": function(settings, json) {
                         $('.edit').off("click").on("click", function() {
                             var cek = $(this).attr('data-id');
                             $.ajax({
-                                url: "{{ route('kas-pemasukan.edit') }}?id=" + cek,
+                                url: "{{ route('dana-pemasukan.edit') }}?id=" + cek,
                                 type: "GET",
                                 dataType: "JSON",
                                 success: function(data) {
@@ -143,26 +152,26 @@
                                     $("#form_add").find("input[name=keterangan]")
                                         .val(data.keterangan);
                                     $("#exampleModalLabel").text(
-                                        "Form Edit Kas Pemasukan");
+                                        "Form Edit Dana Sosial Pemasukan");
                                     $('#modal-add').modal('show');
                                 }
                             });
                         });
 
-
-                        $('.destroy').off('click').on('click',function(){
+                        $('.destroy').off("click").on("click", function() {
                             var cek = $(this).attr('hapus-id');
                             $.ajax({
-                                url :"{{ url('kas-pemasukan/destroy') }}/"+cek,
-                                type:"POST",
-                                success:function(data){
-                                    window.location = "{{ route('kas-pemasukan.index') }}"
+                                url: "{{ url('dana-sosial-pemasukan/destroy') }}/" + cek,
+                                type: "POST",
+                                success: function(data) {
+                                    window.location =
+                                        "{{ route('dana-pemasukan.index') }}";
                                 }
-
                             });
                         });
-                    }
+                    },
                 });
             });
+
         </script>
     @endpush

@@ -50,14 +50,14 @@ class KasPemasukanController extends Controller
     public function store(Request $request)
     {
         $data = [
-            'id_users'      => Auth::id(),
+            'id_users'      => Auth::user()->id,
             'sumber'        => $request->post('sumber'),
             'jumlah'        => $request->post('jumlah'),
             'tanggal'       => $request->post('tanggal'),
             'keterangan'    => $request->post('keterangan'),
         ];
-        if (empty($request->id)) {
-            Kas_Pemasukan::create($data);
+        if ($request->get('id') == "") {
+            Kas_Pemasukan::insert($data);
         } else {
             Kas_Pemasukan::find($request->id)->update($data);
         }

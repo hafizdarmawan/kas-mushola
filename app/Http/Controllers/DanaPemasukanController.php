@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Dana_Sosial_Pemasukan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class DanaSosialPemasukanController extends Controller
 {
@@ -12,9 +14,21 @@ class DanaSosialPemasukanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
-        //
+        return view('backend.dana_masuk.index');
+    }
+
+    public function getData()
+    {
+        return DataTables::of(Dana_Sosial_Pemasukan::all())->make(true);
     }
 
     /**
@@ -35,7 +49,20 @@ class DanaSosialPemasukanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'id_users'      => Auth::id(),
+            'sumber'        => $request->post('sumber'),
+            'jumlah'        => $request->post('jumlah'),
+            'tanggal'       => $request->post('tanggal'),
+            'keterangan'    => $request->post('keterangan')
+        ];
+
+        if ($request->input('id') == '') {
+            Dana_Sosial_Pemasukan::create($data);
+        } else {
+            Dana_Sosial_Pemasukan::find($request->post('id'))->update($data);
+        }
+        return redirect()->route('dana-pemasukan.index');
     }
 
     /**
@@ -55,9 +82,10 @@ class DanaSosialPemasukanController extends Controller
      * @param  \App\Dana_Sosial_Pemasukan  $dana_Sosial_Pemasukan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dana_Sosial_Pemasukan $dana_Sosial_Pemasukan)
+    public function edit(Request $request, $id)
     {
-        //
+        $data = Dana_Sosial_Pemasukan::find($id);
+        echo json_encode($data);
     }
 
     /**
@@ -78,8 +106,8 @@ class DanaSosialPemasukanController extends Controller
      * @param  \App\Dana_Sosial_Pemasukan  $dana_Sosial_Pemasukan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dana_Sosial_Pemasukan $dana_Sosial_Pemasukan)
+    public function destroy(Request $request, $id)
     {
-        //
+        Dana_Sosial_Pemasukan::find($id)->delete();
     }
 }

@@ -8,6 +8,7 @@ class Kas_Pemasukan extends Model
 {
     protected $table = 'kas_pemasukan';
     protected $fillable = [
+        'id_users',
         'sumber',
         'jumlah',
         'tanggal',

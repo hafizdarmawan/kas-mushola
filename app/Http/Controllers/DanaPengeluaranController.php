@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Dana_Sosial_Pengeluaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class DanaSosialPengeluaranController extends Controller
 {
@@ -12,9 +14,16 @@ class DanaSosialPengeluaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
-        //
+        return view('backend.dana_keluar.index');
     }
 
     /**
@@ -22,6 +31,13 @@ class DanaSosialPengeluaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getData()
+    {
+        return DataTables::of(Dana_Sosial_Pengeluaran::all())->make(true);
+    }
+
+
     public function create()
     {
         //
@@ -35,7 +51,21 @@ class DanaSosialPengeluaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'id_user'       => Auth::id(),
+            'keperluan'     => $request->post('keperluan'),
+            'jumlah'        => $request->post('jumlah'),
+            'tanggal'       => $request->post('tanggal'),
+            'keterangan'    => $request->post('keterangan')
+        ];
+
+        if ($request->input('id') == '') {
+            Dana_Sosial_Pengeluaran::create($data);
+        } else {
+            Dana_Sosial_Pengeluaran::find($request->id)->update($data);
+        }
+
+        return redirect()->route('dana-pengeluaran.index');
     }
 
     /**
@@ -55,9 +85,10 @@ class DanaSosialPengeluaranController extends Controller
      * @param  \App\Dana_Sosial_Pengeluaran  $dana_Sosial_Pengeluaran
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dana_Sosial_Pengeluaran $dana_Sosial_Pengeluaran)
+    public function edit(Request $request, $id)
     {
-        //
+        $data = Dana_Sosial_Pengeluaran::find($request->get('id'));
+        echo json_encode($data);
     }
 
     /**
@@ -78,8 +109,8 @@ class DanaSosialPengeluaranController extends Controller
      * @param  \App\Dana_Sosial_Pengeluaran  $dana_Sosial_Pengeluaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dana_Sosial_Pengeluaran $dana_Sosial_Pengeluaran)
+    public function destroy(Request $request, $id)
     {
-        //
+        Dana_Sosial_Pengeluaran::find($id)->delete();
     }
 }
