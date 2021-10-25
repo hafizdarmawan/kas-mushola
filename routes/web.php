@@ -57,3 +57,10 @@ Route::get('/dana-sosial-rekapitulasi', 'DanaRekapController@index')->name('dana
 Route::get('/dana-sosial-rekapitulasi/getdata', 'DanaRekapController@getData')->name('dana-rekapitulasi.getdata');// Rekap Kas
 Route::get('/kas-rekap', 'KasRekapController@index')->name('kas-rekap.index');
 Route::get('/kas-rekap/getdata', 'KasRekapController@getData')->name('kas-rekap.getdata');
+
+
+Route::get('/users', 'UsersController@index')->name('users.index');
+Route::get('/users/getdata', 'UsersController@getData')->name('users.getdata');
+Route::post('/users/store', 'UsersController@store')->name('users.store');
+Route::get('/users/edit', 'UsersController@edit')->name('users.edit');
+Route::post('/users/destroy/{id}', 'UsersController@destroy')->name('users.destroy');

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Dana_Sosial_Pengeluaran;
+use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
-class DanaPengeluaranController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +22,12 @@ class DanaPengeluaranController extends Controller
 
     public function index()
     {
-        return view('backend.dana_keluar.index');
+        return view('backend.users.index');
+    }
+
+    public function getData()
+    {
+        return DataTables::of(User::all())->make(true);
     }
 
     /**
@@ -31,13 +35,6 @@ class DanaPengeluaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function getData()
-    {
-        return DataTables::of(Dana_Sosial_Pengeluaran::all())->make(true);
-    }
-
-
     public function create()
     {
         //
@@ -52,29 +49,28 @@ class DanaPengeluaranController extends Controller
     public function store(Request $request)
     {
         $data = [
-            'id_user'       => Auth::id(),
-            'keperluan'     => $request->post('keperluan'),
-            'jumlah'        => $request->post('jumlah'),
-            'tanggal'       => $request->post('tanggal'),
-            'keterangan'    => $request->post('keterangan')
+            'name'          => $request->post('name'),
+            'email'         => $request->post('email'),
+            'phone'         => $request->post('phone'),
+            'level'         => $request->post('level'),
+            'password'      => $request->post('password'),
         ];
 
         if ($request->input('id') == '') {
-            Dana_Sosial_Pengeluaran::create($data);
+            User::create($data);
         } else {
-            Dana_Sosial_Pengeluaran::find($request->id)->update($data);
+            User::find($request->post('id'))->update($data);
         }
-
-        return redirect()->route('dana-pengeluaran.index');
+        return redirect()->route('users.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Dana_Sosial_Pengeluaran  $dana_Sosial_Pengeluaran
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Dana_Sosial_Pengeluaran $dana_Sosial_Pengeluaran)
+    public function show($id)
     {
         //
     }
@@ -82,12 +78,12 @@ class DanaPengeluaranController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Dana_Sosial_Pengeluaran  $dana_Sosial_Pengeluaran
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request)
     {
-        $data = Dana_Sosial_Pengeluaran::find($request->id);
+        $data = User::findOrFail($request->id);
         echo json_encode($data);
     }
 
@@ -95,22 +91,22 @@ class DanaPengeluaranController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Dana_Sosial_Pengeluaran  $dana_Sosial_Pengeluaran
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dana_Sosial_Pengeluaran $dana_Sosial_Pengeluaran)
+    public function update(Request $request, $id)
     {
-        //
+        User::findOrFail($id)->delete();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Dana_Sosial_Pengeluaran  $dana_Sosial_Pengeluaran
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        Dana_Sosial_Pengeluaran::find($id)->delete();
+        //
     }
 }

@@ -82,9 +82,9 @@ class DanaPemasukanController extends Controller
      * @param  \App\Dana_Sosial_Pemasukan  $dana_Sosial_Pemasukan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request)
     {
-        $data = Dana_Sosial_Pemasukan::find($id);
+        $data = Dana_Sosial_Pemasukan::find($request->id);
         echo json_encode($data);
     }
 

@@ -84,9 +84,9 @@ class KasPengeluaranController extends Controller
      * @param  \App\Kas_Pengeluaran  $kas_Pengeluaran
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request)
     {
-        $data = Kas_Pengeluaran::find($id);
+        $data = Kas_Pengeluaran::find($request->id);
         echo json_encode($data);
     }
 
