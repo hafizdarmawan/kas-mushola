@@ -64,3 +64,11 @@ Route::get('/users/getdata', 'UsersController@getData')->name('users.getdata');
 Route::post('/users/store', 'UsersController@store')->name('users.store');
 Route::get('/users/edit', 'UsersController@edit')->name('users.edit');
 Route::post('/users/destroy/{id}', 'UsersController@destroy')->name('users.destroy');
+
+
+//Route untuk cetak laporan kas
+Route::get('/laporan-kas', 'LaporKasController@index')->name('laporan-kas.index');
+Route::get('/laporan-data-kas/{tanggal_awal}/{tanggal_akhir}', 'LaporKasController@laporanKas')->name('cetak-data-kas.laporanKas');
+//Route untuk cetak laporan dana sosial
+Route::get('/laporan-dana-sosial', 'LaporDanaSosialController@index')->name('laporan-dana-sosial.index');
+Route::get('/laporan-data-dana-sosial/{tanggal_awal}/{tanggal_akhir}', 'LaporDanaSosialController@laporanDanaSosial')->name('cetak-data-dana-sosial.laporanKas');

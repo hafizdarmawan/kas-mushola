@@ -110,8 +110,8 @@
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Manajemen</h6>
-                    {{-- <a class="collapse-item" href="{{ route('laporan-kas.index') }}">Laporan Kas</a>
-                    <a class="collapse-item" href="{{ route('laporan-dana-sosial.index') }}">Laporan Dana Sosial</a> --}}
+                    <a class="collapse-item" href="{{ route('laporan-kas.index') }}">Laporan Kas</a>
+                    <a class="collapse-item" href="{{ route('laporan-dana-sosial.index') }}">Laporan Dana Sosial</a>
                 </div>
         </li>
         @endif
